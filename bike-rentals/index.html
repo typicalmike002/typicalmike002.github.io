@@ -11,7 +11,43 @@
     <link type="text/css" href="style.css" rel="stylesheet" />
 </head>
 <body>
-
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Bike Rentals</h1>
+                <label>Filter</label>
+                <select data-bind="value: selectedFilter, options: types, optionsText: 'text'"></select>
+            </div>
+        </div>
+        <div class="row justify-content-around" data-bind="foreach: displayedBikes">
+            <div class="col-md-3 text-center mt-3 mb-3">
+                <p data-bind="text: name"></p>
+                <div>
+                    <img class="img-fluid" data-bind="attr:{ src: image }" />
+                </div>
+                <button class="btn btn-primary mt-3" data-toggle="modal" data-target="#rentedModel" data-bind="text: 'Rent for $' + price.toFixed(2), click: $parent.selectRental"></p>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="rentedModel" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thank you for your buisness!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Purchased Item: <strong data-bind="text: $data.purchasedRental().name"></strong></p>
+                    <p>Price: $<strong data-bind="text: purchasedRental().price.toFixed(2)"></strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript" src="libraries/jquery.3.3.1.min.js"></script>
     <script type="text/javascript" src="libraries/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="libraries/knockout.3.4.2.min.js"></script>
